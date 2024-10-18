@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/WahyuSiddarta/webauthn/metadata"
-	"github.com/WahyuSiddarta/webauthn/protocol/webauthncose"
+	"github.com/go-webauthn/webauthn/metadata"
+	"github.com/go-webauthn/webauthn/protocol/webauthncose"
 )
 
 func init() {

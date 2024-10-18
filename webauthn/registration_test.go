@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/WahyuSiddarta/webauthn/protocol"
+	"github.com/go-webauthn/webauthn/protocol"
 )
 
 func TestWithRegistrationRelyingPartyID(t *testing.T) {

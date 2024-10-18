@@ -10,7 +10,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/WahyuSiddarta/webauthn/protocol"
+	"github.com/go-webauthn/webauthn/protocol"
 )
 
 // BEGIN LOGIN

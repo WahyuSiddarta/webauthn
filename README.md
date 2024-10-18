@@ -75,7 +75,7 @@ package example
 import (
 	"fmt"
 
-	"github.com/WahyuSiddarta/webauthn/webauthn"
+	"github.com/go-webauthn/webauthn/webauthn"
 )
 
 var (
@@ -192,8 +192,8 @@ You can modify the registration options in the following ways:
 package example
 
 import (
-	"github.com/WahyuSiddarta/webauthn/protocol"
-	"github.com/WahyuSiddarta/webauthn/webauthn"
+	"github.com/go-webauthn/webauthn/protocol"
+	"github.com/go-webauthn/webauthn/webauthn"
 )
 
 var webAuthn webauthn.WebAuthn // init this in your init function
@@ -226,8 +226,8 @@ You can modify the login options to allow only certain credentials:
 package example
 
 import (
-	"github.com/WahyuSiddarta/webauthn/protocol"
-	"github.com/WahyuSiddarta/webauthn/webauthn"
+	"github.com/go-webauthn/webauthn/protocol"
+	"github.com/go-webauthn/webauthn/webauthn"
 )
 
 var webAuthn webauthn.WebAuthn // init this in your init function
@@ -261,8 +261,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/WahyuSiddarta/webauthn/protocol"
-	"github.com/WahyuSiddarta/webauthn/webauthn"
+	"github.com/go-webauthn/webauthn/protocol"
+	"github.com/go-webauthn/webauthn/webauthn"
 )
 
 func main() {
@@ -327,7 +327,7 @@ can be leveraged to verify the credential against the [metadata.Provider]. This 
 on every login, or with a audit schedule.
 
 In addition to using the [Credential Verify] function the
-[webauthn.Config](https://pkg.go.dev/github.com/WahyuSiddarta/webauthn/webauthn#Config) can contain a provider which will
+[webauthn.Config](https://pkg.go.dev/github.com/go-webauthn/webauthn/webauthn#Config) can contain a provider which will
 process all registrations automatically.
 
 At this time no tooling exists to verify the credential automatically outside the registration flow. Implementation of
@@ -340,6 +340,6 @@ We graciously acknowledge the original authors of this library [github.com/duo-l
 implementation. Without their amazing work this library could not exist.
 
 [github.com/duo-labs/webauthn]: https://github.com/duo-labs/webauthn
-[webauthn.Credential]: https://pkg.go.dev/github.com/WahyuSiddarta/webauthn/webauthn#Credential
-[metadata.Provider]: https://pkg.go.dev/github.com/WahyuSiddarta/webauthn/metadata#Provider
-[Credential Verify]: https://pkg.go.dev/github.com/WahyuSiddarta/webauthn/webauthn#Credential.Verify
+[webauthn.Credential]: https://pkg.go.dev/github.com/go-webauthn/webauthn/webauthn#Credential
+[metadata.Provider]: https://pkg.go.dev/github.com/go-webauthn/webauthn/metadata#Provider
+[Credential Verify]: https://pkg.go.dev/github.com/go-webauthn/webauthn/webauthn#Credential.Verify

@@ -1,7 +1,7 @@
 package protocol
 
 import (
-	"github.com/WahyuSiddarta/webauthn/protocol/webauthncose"
+	"github.com/go-webauthn/webauthn/protocol/webauthncose"
 )
 
 type CredentialCreation struct {

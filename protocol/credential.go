@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/WahyuSiddarta/webauthn/metadata"
+	"github.com/go-webauthn/webauthn/metadata"
 )
 
 // Credential is the basic credential type from the Credential Management specification that is inherited by WebAuthn's

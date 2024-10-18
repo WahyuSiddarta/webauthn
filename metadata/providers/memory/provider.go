@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/WahyuSiddarta/webauthn/metadata"
+	"github.com/go-webauthn/webauthn/metadata"
 )
 
 // New returns a new memory Provider given a set of functional Option's.
