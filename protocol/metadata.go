@@ -6,7 +6,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/go-webauthn/webauthn/metadata"
+	"github.com/WahyuSiddarta/webauthn/metadata"
 )
 
 func ValidateMetadata(ctx context.Context, aaguid uuid.UUID, mds metadata.Provider) (err error) {

@@ -18,8 +18,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-webauthn/webauthn/protocol/webauthncbor"
-	"github.com/go-webauthn/webauthn/protocol/webauthncose"
+	"github.com/WahyuSiddarta/webauthn/protocol/webauthncbor"
+	"github.com/WahyuSiddarta/webauthn/protocol/webauthncose"
 )
 
 func TestTPMAttestationVerificationSuccess(t *testing.T) {

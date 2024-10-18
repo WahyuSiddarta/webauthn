@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-webauthn/webauthn/metadata"
-	"github.com/go-webauthn/webauthn/protocol/webauthncose"
+	"github.com/WahyuSiddarta/webauthn/metadata"
+	"github.com/WahyuSiddarta/webauthn/protocol/webauthncose"
 )
 
 func init() {

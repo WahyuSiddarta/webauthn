@@ -1,10 +1,11 @@
 # WebAuthn Library
 
-[![GoDoc](https://godoc.org/github.com/go-webauthn/webauthn?status.svg)](https://godoc.org/github.com/go-webauthn/webauthn)
-[![Go Report Card](https://goreportcard.com/badge/github.com/go-webauthn/webauthn)](https://goreportcard.com/report/github.com/go-webauthn/webauthn)
+[TEMPORARY CHANGE FOR DEBUGGING]
 
+[![GoDoc](https://godoc.org/github.com/WahyuSiddarta/webauthn?status.svg)](https://godoc.org/github.com/WahyuSiddarta/webauthn)
+[![Go Report Card](https://goreportcard.com/badge/github.com/WahyuSiddarta/webauthn)](https://goreportcard.com/report/github.com/WahyuSiddarta/webauthn)
 
-This library is meant to handle [Web Authentication](https://www.w3.org/TR/webauthn) for Go apps that wish to implement 
+This library is meant to handle [Web Authentication](https://www.w3.org/TR/webauthn) for Go apps that wish to implement
 a passwordless solution for users. This library conforms as much as possible to the guidelines and implementation
 procedures outlined by the document.
 
@@ -42,15 +43,15 @@ which are not available in that version. The current intentionally supported ver
 
 ## Status
 
-This library is still version 0, as per Semantic Versioning 2.0 rules there may be breaking changes without warning. 
+This library is still version 0, as per Semantic Versioning 2.0 rules there may be breaking changes without warning.
 While we strive to avoid such changes and strive to notify users they may be unavoidable.
 
 ## Quickstart
 
-`go get github.com/go-webauthn/webauthn` and initialize it in your application with basic configuration values. 
+`go get github.com/WahyuSiddarta/webauthn` and initialize it in your application with basic configuration values.
 
-Make sure your `user` model is able to handle the interface functions laid out in `webauthn/types.go`. This means also 
-supporting the storage and retrieval of the credential and authenticator structs in `webauthn/credential.go` and 
+Make sure your `user` model is able to handle the interface functions laid out in `webauthn/types.go`. This means also
+supporting the storage and retrieval of the credential and authenticator structs in `webauthn/credential.go` and
 `webauthn/authenticator.go`, respectively.
 
 ## Examples
@@ -59,7 +60,7 @@ The following examples show some basic use cases of the library. For consistency
 to denote specific things:
 
 - Variable `webAuthn`: the `webauthn.WebAuthn` instance you initialize elsewhere in your code
-- Variable `datastore`: the pseudocode backend service that stores your webauthn session data and users such as PostgreSQL 
+- Variable `datastore`: the pseudocode backend service that stores your webauthn session data and users such as PostgreSQL
 - Variable `session`: the webauthn.SessionData object
 - Variable `user`: your webauthn.User implementation
 
@@ -74,7 +75,7 @@ package example
 import (
 	"fmt"
 
-	"github.com/go-webauthn/webauthn/webauthn"
+	"github.com/WahyuSiddarta/webauthn/webauthn"
 )
 
 var (
@@ -89,7 +90,7 @@ func main() {
 		RPID: "go-webauthn.local", // Generally the FQDN for your site
 		RPOrigins: []string{"https://login.go-webauthn.local"}, // The origin URLs allowed for WebAuthn requests
 	}
-	
+
 	if webAuthn, err = webauthn.New(wconfig); err != nil {
 		fmt.Println(err)
 	}
@@ -102,27 +103,27 @@ func main() {
 package example
 
 func BeginRegistration(w http.ResponseWriter, r *http.Request) {
-	user := datastore.GetUser() // Find or create the new user  
+	user := datastore.GetUser() // Find or create the new user
 	options, session, err := webAuthn.BeginRegistration(user)
 	// handle errors if present
-	// store the sessionData values 
+	// store the sessionData values
 	JSONResponse(w, options, http.StatusOK) // return the options generated
 	// options.publicKey contain our registration options
 }
 
 func FinishRegistration(w http.ResponseWriter, r *http.Request) {
 	user := datastore.GetUser() // Get the user
-	
+
 	// Get the session data stored from the function above
 	session := datastore.GetSession()
-		
+
 	credential, err := webAuthn.FinishRegistration(user, session, r)
 	if err != nil {
 		// Handle Error and return.
 
 		return
 	}
-	
+
 	// If creation was successful, store the credential object
 	// Pseudocode to add the user credential.
 	user.AddCredential(credential)
@@ -139,27 +140,27 @@ package example
 
 func BeginLogin(w http.ResponseWriter, r *http.Request) {
 	user := datastore.GetUser() // Find the user
-	
+
 	options, session, err := webAuthn.BeginLogin(user)
 	if err != nil {
 		// Handle Error and return.
 
 		return
 	}
-	
+
 	// store the session values
 	datastore.SaveSession(session)
-	
+
 	JSONResponse(w, options, http.StatusOK) // return the options generated
 	// options.publicKey contain our registration options
 }
 
 func FinishLogin(w http.ResponseWriter, r *http.Request) {
-	user := datastore.GetUser() // Get the user 
-	
+	user := datastore.GetUser() // Get the user
+
 	// Get the session data stored from the function above
 	session := datastore.GetSession()
-	
+
 	credential, err := webAuthn.FinishLogin(user, session, r)
 	if err != nil {
 		// Handle Error and return.
@@ -173,15 +174,15 @@ func FinishLogin(w http.ResponseWriter, r *http.Request) {
 	// Pseudocode to update the user credential.
 	user.UpdateCredential(credential)
 	datastore.SaveUser(user)
-	
+
 	JSONResponse(w, "Login Success", http.StatusOK)
 }
 ```
 
 ## Modifying Credential Options
 
-You can modify the default credential creation options for registration and login by providing optional structs to the 
-`BeginRegistration` and `BeginLogin` functions. 
+You can modify the default credential creation options for registration and login by providing optional structs to the
+`BeginRegistration` and `BeginLogin` functions.
 
 ### Registration modifiers
 
@@ -191,14 +192,14 @@ You can modify the registration options in the following ways:
 package example
 
 import (
-	"github.com/go-webauthn/webauthn/protocol"
-	"github.com/go-webauthn/webauthn/webauthn"
+	"github.com/WahyuSiddarta/webauthn/protocol"
+	"github.com/WahyuSiddarta/webauthn/webauthn"
 )
 
 var webAuthn webauthn.WebAuthn // init this in your init function
 
 func beginRegistration() {
-	// Updating the AuthenticatorSelection options. 
+	// Updating the AuthenticatorSelection options.
 	// See the struct declarations for values
 	authSelect := protocol.AuthenticatorSelection{
 		AuthenticatorAttachment: protocol.AuthenticatorAttachment("platform"),
@@ -206,11 +207,11 @@ func beginRegistration() {
 		UserVerification: protocol.VerificationRequired,
 	}
 
-	// Updating the ConveyencePreference options. 
+	// Updating the ConveyencePreference options.
 	// See the struct declarations for values
 	conveyancePref := protocol.PreferNoAttestation
 
-	user := datastore.GetUser() // Get the user  
+	user := datastore.GetUser() // Get the user
 	opts, session, err := webAuthn.BeginRegistration(user, webauthn.WithAuthenticatorSelection(authSelect), webauthn.WithConveyancePreference(conveyancePref))
 
 	// Handle next steps
@@ -225,14 +226,14 @@ You can modify the login options to allow only certain credentials:
 package example
 
 import (
-	"github.com/go-webauthn/webauthn/protocol"
-	"github.com/go-webauthn/webauthn/webauthn"
+	"github.com/WahyuSiddarta/webauthn/protocol"
+	"github.com/WahyuSiddarta/webauthn/webauthn"
 )
 
 var webAuthn webauthn.WebAuthn // init this in your init function
 
 func beginLogin() {
-	// Updating the AuthenticatorSelection options. 
+	// Updating the AuthenticatorSelection options.
 	// See the struct declarations for values
 	allowList := make([]protocol.CredentialDescriptor, 1)
 	allowList[0] = protocol.CredentialDescriptor{
@@ -240,7 +241,7 @@ func beginLogin() {
 		Type: protocol.CredentialType("public-key"),
 	}
 
-	user := datastore.GetUser() // Get the user  
+	user := datastore.GetUser() // Get the user
 
 	opts, session, err := w.BeginLogin(user, webauthn.WithAllowedCredentials(allowList))
 
@@ -259,9 +260,9 @@ package example
 import (
 	"fmt"
 	"time"
-	
-	"github.com/go-webauthn/webauthn/protocol"
-	"github.com/go-webauthn/webauthn/webauthn"
+
+	"github.com/WahyuSiddarta/webauthn/protocol"
+	"github.com/WahyuSiddarta/webauthn/webauthn"
 )
 
 func main() {
@@ -282,7 +283,7 @@ func main() {
 			},
 		},
 	}
-	
+
 	webAuthn, err := webauthn.New(wconfig)
 	if err != nil {
 		fmt.Println(err)
@@ -295,13 +296,13 @@ func main() {
 The WebAuthn Level 3 specification describes the Credential Record which includes several required and optional elements
 that you should store for. See [§ 4 Terminology](https://www.w3.org/TR/webauthn-3/#credential-record) for details.
 
-This section describes this element. 
+This section describes this element.
 
 The fields listed in the specification have corresponding fields in the [webauthn.Credential] struct. See the below
 table for more information. We also include JSON mappings for those that wish to just store these values as JSON.
 
 |    Specification Field    |       Library Field        |         JSON Field         |                                           Notes                                           |
-|:-------------------------:|:--------------------------:|:--------------------------:|:-----------------------------------------------------------------------------------------:|
+| :-----------------------: | :------------------------: | :------------------------: | :---------------------------------------------------------------------------------------: |
 |           type            |            N/A             |            N/A             |                       This field is always `publicKey` for WebAuthn                       |
 |            id             |             ID             |             id             |                                                                                           |
 |         publicKey         |         PublicKey          |         publicKey          |                                                                                           |
@@ -321,12 +322,12 @@ validation in this scenario.
 
 ### Verification
 
-As long as the [webauthn.Credential] struct has exactly the same values when restored the [Credential Verify] function 
+As long as the [webauthn.Credential] struct has exactly the same values when restored the [Credential Verify] function
 can be leveraged to verify the credential against the [metadata.Provider]. This can be either done during registration,
 on every login, or with a audit schedule.
 
-In addition to using the [Credential Verify] function the 
-[webauthn.Config](https://pkg.go.dev/github.com/go-webauthn/webauthn/webauthn#Config) can contain a provider which will
+In addition to using the [Credential Verify] function the
+[webauthn.Config](https://pkg.go.dev/github.com/WahyuSiddarta/webauthn/webauthn#Config) can contain a provider which will
 process all registrations automatically.
 
 At this time no tooling exists to verify the credential automatically outside the registration flow. Implementation of
@@ -338,8 +339,7 @@ tooling to implement this yourself.
 We graciously acknowledge the original authors of this library [github.com/duo-labs/webauthn] for their amazing
 implementation. Without their amazing work this library could not exist.
 
-
 [github.com/duo-labs/webauthn]: https://github.com/duo-labs/webauthn
-[webauthn.Credential]: https://pkg.go.dev/github.com/go-webauthn/webauthn/webauthn#Credential
-[metadata.Provider]: https://pkg.go.dev/github.com/go-webauthn/webauthn/metadata#Provider
-[Credential Verify]: https://pkg.go.dev/github.com/go-webauthn/webauthn/webauthn#Credential.Verify
+[webauthn.Credential]: https://pkg.go.dev/github.com/WahyuSiddarta/webauthn/webauthn#Credential
+[metadata.Provider]: https://pkg.go.dev/github.com/WahyuSiddarta/webauthn/metadata#Provider
+[Credential Verify]: https://pkg.go.dev/github.com/WahyuSiddarta/webauthn/webauthn#Credential.Verify
