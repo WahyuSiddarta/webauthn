@@ -1,4 +1,4 @@
-module github.com/WahyuSiddarta/webauthn
+module github.com/WahyuSiddarta/webauthn/webauthn
 
 go 1.23
 
