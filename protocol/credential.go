@@ -79,7 +79,7 @@ func ParseCredentialCreationResponseBody(body io.Reader) (pcc *ParsedCredentialC
 	var ccr CredentialCreationResponse
 
 	if err = decodeBody(body, &ccr); err != nil {
-		return nil, ErrBadRequest.WithDetails("Parse error for Registration").WithInfo(err.Error())
+		return nil, ErrBadRequest.WithDetails("Parse error for Registration1").WithInfo(err.Error())
 	}
 
 	return ccr.Parse()
@@ -91,7 +91,7 @@ func ParseCredentialCreationResponseBytes(data []byte) (pcc *ParsedCredentialCre
 	var ccr CredentialCreationResponse
 
 	if err = decodeBytes(data, &ccr); err != nil {
-		return nil, ErrBadRequest.WithDetails("Parse error for Registration").WithInfo(err.Error())
+		return nil, ErrBadRequest.WithDetails("Parse error for Registration2").WithInfo(err.Error())
 	}
 
 	return ccr.Parse()
@@ -103,20 +103,20 @@ func ParseCredentialCreationResponseBytes(data []byte) (pcc *ParsedCredentialCre
 // for their use case.
 func (ccr CredentialCreationResponse) Parse() (pcc *ParsedCredentialCreationData, err error) {
 	if ccr.ID == "" {
-		return nil, ErrBadRequest.WithDetails("Parse error for Registration").WithInfo("Missing ID")
+		return nil, ErrBadRequest.WithDetails("Parse error for Registration3").WithInfo("Missing ID")
 	}
 
 	testB64, err := base64.RawURLEncoding.DecodeString(ccr.ID)
 	if err != nil || !(len(testB64) > 0) {
-		return nil, ErrBadRequest.WithDetails("Parse error for Registration").WithInfo("ID not base64.RawURLEncoded")
+		return nil, ErrBadRequest.WithDetails("Parse error for Registration4").WithInfo("ID not base64.RawURLEncoded")
 	}
 
 	if ccr.PublicKeyCredential.Credential.Type == "" {
-		return nil, ErrBadRequest.WithDetails("Parse error for Registration").WithInfo("Missing type")
+		return nil, ErrBadRequest.WithDetails("Parse error for Registration5").WithInfo("Missing type")
 	}
 
 	if ccr.PublicKeyCredential.Credential.Type != "public-key" {
-		return nil, ErrBadRequest.WithDetails("Parse error for Registration").WithInfo("Type not public-key")
+		return nil, ErrBadRequest.WithDetails("Parse error for Registration6").WithInfo("Type not public-key")
 	}
 
 	response, err := ccr.AttestationResponse.Parse()
